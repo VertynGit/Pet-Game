@@ -75,6 +75,7 @@ public:
 							node<Bot>* temp = child->head;
 							for (int i = 0; i < child->count; i++) {
 								Bot* Child = temp->val;
+								Child->setFight(false);
 								Child->setMove(true);
 								Child->setTempXY(pos.x, pos.y);
 								temp = temp->next;
@@ -92,6 +93,7 @@ public:
 					}
 					else {
 						if (tempObj == 0) {
+							isFight = false;
 							setMove(true);
 							setTempXY(pos.x, pos.y);
 						}
