@@ -23,11 +23,11 @@ int main()
 	list<Bot> Enem; list<Bot> Hero;
 
 	for (int i = 0; i < n; i++) {
-		Enem.add(new Enemy);
+		Enem.Add(new Enemy);
 	}
 
 	for (int i = 0; i < N; i++) {
-		Hero.add(new Magician);
+		Hero.Add(new Magician);
 	}
 
 	node<Bot>* tempH = Hero.head;
@@ -46,7 +46,7 @@ int main()
 	/////
 	/////
 	RenderWindow window(VideoMode(1400, 800), "...");
-	Bot::setwin(window);
+	Bot::SetWin(window);
 	view.reset(FloatRect(0, 0, 640, 480));
 	window.setFramerateLimit(40);
 
@@ -71,7 +71,7 @@ int main()
 	    tim = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
 		tim = tim/1000;
-		Bot::setTime(tim);
+		Bot::SetTime(tim);
 		view.setSize(window.getSize().x, window.getSize().y);
 		Event event;
 		while (window.pollEvent(event))
@@ -83,12 +83,12 @@ int main()
 			}
 			if (event.type == sf::Event::Closed)
 				window.close();
-			Bot::add(event);	
+			Bot::Add(event);	
 		}
 		
 		Logic(Hero, Enem);
 
-		Bot::clearevent();
+		Bot::ClearEvent();
 
 			if (Hero.count == 0 || Enem.count == 0)
 				break;
@@ -96,7 +96,7 @@ int main()
 		///////////////////////////////////////////Управление персонажем с анимацией////////////////////////////////////////////////////////////////////////	
 			
 			Bot* main = Hero.head->val;
-		getplayercoordinateforview(main->getx(), main->gety());
+		getplayercoordinateforview(main->getx(), main->GetY());
 		window.setView(view);
 		window.clear();
 		for (int i = 0; i < HEIGHT_MAP; i++)

@@ -22,17 +22,17 @@ void DethBot(list<Bot>& T, list<Bot>& Enem) {
 	node<Bot>* tempE = Enem.head;
 	for (int i = T.count; i > 0; i--) {
 		Bot* del = tempH->val;
-		if (del->getheal() <= 0) {
+		if (del->GetHeal() <= 0) {
 			for (int i = Enem.count; i > 0; i--) {
 				Bot* enemy = tempE->val;
-				if (enemy->getobj() == del) {
-					enemy->setnulobj();
+				if (enemy->GetObj() == del) {
+					enemy->SetNullObj();
 				}
 				tempE = tempE->next;
 			}
 			node<Bot>* Del = tempH;
 			tempH = tempH->next;
-			T.del(Del);
+			T.Del(Del);
 		}
 		else tempH = tempH->next;
 	}
@@ -68,11 +68,11 @@ void DrawT(list<Bot>& T, list<Bot>& T1) {
 		tempE = tempE->next;
 	}
 	for (int i = n; i > 0; i--) {
-		tempH->val->drawlife();
+		tempH->val->DrawLife();
 		tempH = tempH->next;
 	}
 	for (int i = n1; i > 0; i--) {
-		tempE->val->drawlife();
+		tempE->val->DrawLife();
 		tempE = tempE->next;
 	}
 }

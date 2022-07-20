@@ -22,15 +22,15 @@ public:
 	}
 	~War() {
 		DethRattle();
-		if (otec != 0) {
-			otec->setnullChild();
+		if (emergence != 0) {
+			emergence->SetnullChild();
 		}
 		if (parent != 0) {
-			(dynamic_cast<Parent*>(parent))->setnullChild(this);
+			(dynamic_cast<Parent*>(parent))->SetnullChild(this);
 		}
 	}
 
-	float useabilities(list<Bot>& E, list<Bot>& H) override{
+	float UseAbilities(list<Bot>& E, list<Bot>& H) override{
 		skills[0]->request->StartRequest();
 		return 0;
 	}
@@ -49,31 +49,31 @@ public:
 	}
 	~AddChild() {
 		if (child != 0) {
-			(dynamic_cast<Child*>(child))->setSkill(0);
+			(dynamic_cast<Child*>(child))->SetSkill(0);
 		}
 		delete request;
 	}
-	void setnullChild() {
+	void SetnullChild() {
 		child = 0;
 	}
-	void updateSk(list<Bot>& E, list<Bot>& H, float time) override {
+	void UpdateSk(list<Bot>& E, list<Bot>& H, float time) override {
 		objects = &H;
 	}
-	void cast() {
+	virtual void Cast() override {
 		if (child == 0) {
 			Parent* temp = dynamic_cast<Parent*>(object);
 			War* acolyte = new War;
 			child = acolyte;
-			acolyte->setParent(object);
-			acolyte->setSkill(this);
-			temp->child->addWD(acolyte);
-			objects->add(acolyte);
+			acolyte->SetParent(object);
+			acolyte->SetSkill(this);
+			temp->child->AddWD(acolyte);
+			objects->Add(acolyte);
 		}
 		else {
 			float heal = 50;
-			child->gethelp(heal);
+			child->GetHelp(heal);
 		}
 		timer = 0;
-		object->addotcat(this);
+		object->AddCooldown(this);
 	}
 };

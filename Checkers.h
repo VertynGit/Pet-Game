@@ -18,7 +18,7 @@ public:
 		skill = Iskill;
 	}
 	bool check() {
-		if (skill->object->getobj() != 0) {
+		if (skill->object->GetObj() != 0) {
 			return true;
 		}
 		else {
@@ -32,8 +32,8 @@ public:
 		skill = Iskill;
 	}
 	bool check() {
-		skill->object->setMove(false);
-		skill->cast();
+		skill->object->SetMove(false);
+		skill->Cast();
 		return true;
 	}
 };

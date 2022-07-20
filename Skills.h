@@ -14,13 +14,13 @@ public:
 	~StuN() {
 		delete request;
 	}
-	void cast() {
-		Stun* temp = new Stun(object->getobj());
-		Bot* Goal = object->getobj();
-		Goal->createMod(temp);
-		Goal->getdam(damage);
+	virtual void Cast() override{
+		Stun* temp = new Stun(object->GetObj());
+		Bot* Goal = object->GetObj();
+		Goal->CreateMod(temp);
+		Goal->GetDam(damage);
 		timer = 0;
-		object->addotcat(this);
+		object->AddCooldown(this);
 	}
 
 };
@@ -41,26 +41,26 @@ public:
 	~Break() {
 		delete request;
 	}
-	void updateSk(list <Bot>& E, list <Bot>& H, float time) {
+	virtual void UpdateSk(list <Bot>& E, list <Bot>& H, float time) override {
 		objects = &E;
 	}
-	void cast() {
+	virtual void Cast() override {
 		if (objects != 0) {
 			node<Bot>* HEAD = objects->head;
 			node<Bot>* temp = HEAD;
 			do {
 				Bot* t = temp->val;
-				float X = t->getx(), Y = t->gety();
-				float d = object->dist(X, Y);
+				float X = t->getx(), Y = t->GetY();
+				float d = object->Dist(X, Y);
 				if (d <= range) {
 					Fire* tempfire = new Fire(t);
-					t->createMod(tempfire);
+					t->CreateMod(tempfire);
 				}
 				temp = temp->next;
 			} while (temp != HEAD);
 		}
 		timer = 0;
-		object->addotcat(this);
+		object->AddCooldown(this);
 	}
 
 };

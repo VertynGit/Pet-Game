@@ -4,12 +4,12 @@
 class Child {
 protected:
 	Bot* parent;
-	Skill* otec;
+	Skill* emergence;
 public:
-	void setSkill(Skill* temp = 0) {
-		otec = temp;
+	void SetSkill(Skill* temp = 0) {
+		emergence = temp;
 	}
-	void setParent(Bot* t) {
+	void SetParent(Bot* t) {
 		parent = t;
 	}
 };
@@ -17,11 +17,11 @@ public:
 class Parent {
 public:
 	list<Bot>* child;
-	virtual void setnullChild(Bot* t) {
+	virtual void SetnullChild(Bot* t) {
 		node<Bot>* temp = child->head;
 		for (int i = child->count; i > 0; i--) {
 			if (temp->val == t) {
-				child->del(temp);
+				child->Del(temp);
 				break;
 			}
 			temp = temp->next;

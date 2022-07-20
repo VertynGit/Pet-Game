@@ -2,7 +2,7 @@
 #include"Bot.h"
 struct Stun :public Buff {
 	Stun(Bot* obj) {
-		obj->setStun(true);
+		obj->SetStun(true);
 		lifeTime = 2000;
 		timerlife = 0;
 		object = obj;
@@ -11,7 +11,7 @@ struct Stun :public Buff {
 		timerlife += time;
 	}
 	void DethRattle() {
-		object->setStun(false);
+		object->SetStun(false);
 	}
 	~Stun() {
 		DethRattle();
@@ -28,13 +28,13 @@ struct Fire :public Buff {
 		timer = 0;
 		timerlife = 0;
 		lifeTime = 1500;
-		object->getdam(damage);
+		object->GetDam(damage);
 	}
 	void UpdateBuf(list<Bot>& E, list<Bot>& H, float time) override{
 		timerlife += time;
 		timer += time;
 		if (timer >= Cooldown) {
-			object->getdam(damage);
+			object->GetDam(damage);
 			timer = 0;
 		}
 	}
