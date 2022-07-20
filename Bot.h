@@ -13,8 +13,8 @@ protected:
 	static float time;
 	Skill** skills;
 	int numberSkill;
-	list<Skill>* Otcat;
-	list<Buff>* Mods;
+	list<Skill>* cooldown;
+	list<Buff>* mods;
 	static listV<Event> Ev;
 	Bot* object;
 	float x, y, tempX, tempY;
@@ -49,165 +49,165 @@ public:
 		t.loadFromImage(im);
 		s.setTexture(t);
 		bar.setFillColor(Color(0, 0, 0));
-		Mods = new list<Buff>;
-		Otcat = new list<Skill>;
+		mods = new list<Buff>;
+		cooldown = new list<Skill>;
 		x = rand() % 600 + 320;
 		y = rand() % 314 + 240;
 		sprite.setPosition(x, y);
 
 	}
 	virtual ~Bot() { };
-	static void setwin(RenderWindow & temp) {
+	static void SetWin(RenderWindow & temp) {
 		myWindow = &temp;
 	}
-	static void setTime(float temp) {
+	static void SetTime(float temp) {
 		time = temp;
 	}
-	void addotcat(Skill * temp) {
-		Otcat->addWD(temp);
+	void AddCooldown(Skill * temp) {
+		cooldown->AddWD(temp);
 	}
-	void updateotcat() { 
-		node<Skill>* temp = Otcat->head;
-		for (int i = Otcat->count; i > 0; i--) {
+	void UpdateCooldown() { 
+		node<Skill>* temp = cooldown->head;
+		for (int i = cooldown->count; i > 0; i--) {
 			Skill* SkillUp = temp->val;
-			SkillUp->update(time);
+			SkillUp->Update(time);
 			if (SkillUp->timer >= SkillUp->Cooldown) {
 				node<Skill>* DEL = temp;
 				temp = temp->next;
-				Otcat->del(DEL);
+				cooldown->Del(DEL);
 			}
 			else temp = temp->next;
 		}
 
 	}
-	static void add(Event event) {
-		Ev.add(event);
+	static void Add(Event event) {
+		Ev.Add(event);
 	}
-	static void clearevent() {
-		Ev.clear();
+	static void ClearEvent() {
+		Ev.Clear();
 	}
-	void createMod(Buff * M) {
-		Mods->add(M);
+	void CreateMod(Buff * M) {
+		mods->Add(M);
 	}
-	void updateMod(list <Bot> & E, list <Bot> & H) {
-		node<Buff>* temp = Mods->head;
-		for (int i = Mods->count; i > 0; i--) {
+	void UpdateMod(list <Bot> & E, list <Bot> & H) {
+		node<Buff>* temp = mods->head;
+		for (int i = mods->count; i > 0; i--) {
 			Buff* BuffUp = temp->val;
 			BuffUp->UpdateBuf(E, H, time);
 			if (BuffUp->timerlife >= BuffUp->lifeTime) {
 				node<Buff>* DEL = temp;
 				temp = temp->next;
-				Mods->del(DEL);
+				mods->Del(DEL);
 			}
 			temp = temp->next;
 		}
 	}
-	void setTempXY(float& X, float& Y) {
+	void SetTempXY(float& X, float& Y) {
 		tempX = X;
 		tempY = Y;
 	}
-	void setStun(bool st) {
+	void SetStun(bool st) {
 		isStun = st;
 	}
 	void Draw() {
 		myWindow->draw(sprite);
 	}
-	void drawlife() {
+	void DrawLife() {
 		bar.setSize(Vector2f((max - health) * 50 / max, 6));
 		s.setPosition(x - w / 2, y - h / 2 - 10);
 		bar.setPosition(x - w / 2, y - h / 2 - 10);
 		myWindow->draw(s);
 		myWindow->draw(bar);
 	}
-	float getrange() {
+	float GetRange() {
 		return range;
 	}
-	bool getlife() {
+	bool GetLife() {
 		return islife;
 	}
-	virtual void gethelp(float& H) {
+	virtual void GetHelp(float& H) {
 		float d = health + H;
 		if (d >= max)
 			health = max;
 		else health = d;
 	}
-	float getheal() {
+	float GetHeal() {
 		return health;
 	}
-	bool getMove() {
+	bool GetMove() {
 		return isMove;
 	}
-	void setMove(bool b) { isMove = b; }
+	void SetMove(bool b) { isMove = b; }
 	float getx() {
 		return x;
 	}
-	float gety() {
+	float GetY() {
 		return y;
 	}
-	float dist(float X, float Y) {
+	float Dist(float X, float Y) {
 		return sqrt((X - x) * (X - x) + (Y - y) * (Y - y));
 	}
 	void Moving(float X, float Y) {
-		float distance = dist(X, Y);
+		float distance = Dist(X, Y);
 		x += speed * time * (X - x) / distance;
 		y += speed * time * (Y - y) / distance;
 	}
-	virtual void getdam(float dg) {
+	virtual void GetDam(float dg) {
 		health = health - dg;
 		if (health <= 0)
 			islife = false;
 	}
-	void nultime() {
+	void NullTime() {
 		timeAttack = 0.000000;
 	}
-	virtual float useabilities(list<Bot>& E, list<Bot>& H) { return 0; };
+	virtual float UseAbilities(list<Bot>& E, list<Bot>& H) { return 0; };
 
-	void setobj(Bot* obj) {
+	void SetObj(Bot* obj) {
 		object = obj;
 	}
-	void setFight(bool b) {
+	void SetFight(bool b) {
 		isFight = b;
 	}
-	void setnulobj() {
+	void SetNullObj() {
 		object = 0;
 	}
-	Bot* getobj() {
+	Bot* GetObj() {
 		return object;
 	}
-	virtual void attack() {
+	virtual void Attack() {
 		timeAttack += time;
 		if (timeAttack > attackSp) {
 			timeAttack = 0;
-			object->getdam(damage);
+			object->GetDam(damage);
 		}
 	}
 	void DethRattle() {
-		delete Otcat;
-		delete Mods;
+		delete cooldown;
+		delete mods;
 		for (int i = 0; i < numberSkill; i++) {
 			delete skills[i];
 		}
 		delete[] skills;
 	}
-	virtual void selection(list<Bot>& E, list<Bot>& H);
+	virtual void Selection(list<Bot>& E, list<Bot>& H);
 	virtual void Attack(list<Bot>& E, list<Bot>& H);
 	virtual void Birth(list<Bot> & H) {};
-	void updateSk(list<Bot> & E, list<Bot> & H) {
+	void UpdateSk(list<Bot> & E, list<Bot> & H) {
 		if (skills != 0)
 			for (int i = 0; i < numberSkill; i++) {
-				skills[i]->updateSk(E, H, time);
+				skills[i]->UpdateSk(E, H, time);
 			}
 	}
 	virtual void Botlogic(list<Bot>& E, list<Bot>& H) {
-		updateMod(E, H);
-		updateotcat();
-		updateSk(E, H);
+		UpdateMod(E, H);
+		UpdateCooldown();
+		UpdateSk(E, H);
 		if (!isStun) {
 			if (isFight) {
-				if (isSelect) useabilities(E, H);
-				if (!object) selection(E, H);
+				if (isSelect) UseAbilities(E, H);
+				if (!object) Selection(E, H);
 				if (isMove) {
-					if (dist(tempX, tempY) > 1) {
+					if (Dist(tempX, tempY) > 1) {
 						Moving(tempX, tempY);
 					}
 					else { isMove = false; }
@@ -215,9 +215,9 @@ public:
 				else Attack(E, H);
 			}
 			else {
-				if (isSelect) useabilities(E, H);
+				if (isSelect) UseAbilities(E, H);
 				if (isMove) {
-					if (dist(tempX, tempY) > 2) {
+					if (Dist(tempX, tempY) > 2) {
 						Moving(tempX, tempY);
 					}
 					else { isMove = false; }
@@ -236,33 +236,33 @@ public:
 void Bot::Attack(list<Bot>& E, list<Bot>& H) {
 	if (object != 0) {
 		float distance = 0, X = 0, Y = 0;
-		X = object->getx(), Y = object->gety();
-		distance = dist(X, Y);
+		X = object->getx(), Y = object->GetY();
+		distance = Dist(X, Y);
 		if (distance > range) {
 			Moving(X, Y);
 		}
 		else {
-			attack();
+			Attack();
 		}
 	}
 }
-void Bot::selection(list<Bot>& E, list<Bot>& H) {
+void Bot::Selection(list<Bot>& E, list<Bot>& H) {
 	float distance = 0, X = 0, Y = 0;
-	nultime();
+	NullTime();
 	node<Bot>* HEAD = E.head;
 	node<Bot>* temp = HEAD;
 	do {
-		if (temp->val->getlife() == true) {
+		if (temp->val->GetLife() == true) {
 			object = temp->val;
-			X = object->getx(), Y = object->gety();
-			distance = dist(X, Y);
+			X = object->getx(), Y = object->GetY();
+			distance = Dist(X, Y);
 			if (temp->next != HEAD) {
 				do {
 					temp = temp->next;
-					if (temp->val->getlife() == true) {
+					if (temp->val->GetLife() == true) {
 						Bot* i = temp->val;
-						X = i->getx(), Y = i->gety();
-						float d = dist(X, Y);
+						X = i->getx(), Y = i->GetY();
+						float d = Dist(X, Y);
 						if (d < distance) {
 							distance = d; object = i;
 						}

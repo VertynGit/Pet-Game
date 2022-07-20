@@ -6,14 +6,14 @@ class Bot;
 class SkillCastRequest;
 class Skill {//Скилл должен хранить и код клавиши и расположение и анимацию 
 public:
-	void update(double time) { timer += time; }
-	virtual void updateSk(list<Bot>& E, list<Bot>& H, float time) {};
-	virtual void setnullChild() {};
+	void Update(double time) { timer += time; }
+	virtual void UpdateSk(list<Bot>& E, list<Bot>& H, float time) {};
+	virtual void SetnullChild() {};
 	float Cooldown;
 	float timer;
 	Bot* object;
 	virtual void DethRattle() {};
-	virtual void cast() {};
+	virtual void Cast() {};
 	SkillCastRequest* request;
 	virtual ~Skill() {}
 };
@@ -57,7 +57,7 @@ struct Buff {
 	virtual void UpdateBuf(list<Bot>& E, list<Bot>& H, float time) {
 		timerlife += time;
 	}
-	virtual void update(float time) { timerlife += time; }
+	virtual void Update(float time) { timerlife += time; }
 	virtual ~Buff() {
 	}
 };

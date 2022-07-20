@@ -21,10 +21,10 @@ public:
 	~Magician() {
 		node<Bot>* temp = child->head;
 		for (int i = child->count; i > 0; i--) {
-			(dynamic_cast<Child*>(temp->val))->setParent(0);
+			(dynamic_cast<Child*>(temp->val))->SetParent(0);
 			node<Bot>* DEL = temp;
 			temp = temp->next;
-			child->del(DEL);
+			child->Del(DEL);
 		}
 		delete child;
 		DethRattle();
@@ -34,11 +34,11 @@ public:
 		skills[0] = new Break(this);
 		skills[1] = new StuN(this);
 		skills[2] = new AddChild(this);
-		skills[2]->updateSk(H, H, time);
+		skills[2]->UpdateSk(H, H, time);
 		skills[2]->request->StartRequest();
 	};
 
-	float useabilities(list<Bot>& E, list<Bot>& H) {
+	float UseAbilities(list<Bot>& E, list<Bot>& H) {
 		nodeV<Event>* temp = Ev.head;
 		for (int i = 0; i < Ev.count; i++) {
 			if (temp->val.type == sf::Event::KeyPressed)
@@ -75,9 +75,9 @@ public:
 							node<Bot>* temp = child->head;
 							for (int i = 0; i < child->count; i++) {
 								Bot* Child = temp->val;
-								Child->setFight(false);
-								Child->setMove(true);
-								Child->setTempXY(pos.x, pos.y);
+								Child->SetFight(false);
+								Child->SetMove(true);
+								Child->SetTempXY(pos.x, pos.y);
 								temp = temp->next;
 							}
 						}
@@ -85,8 +85,8 @@ public:
 							node<Bot>* temp = child->head;
 							for (int i = 0; i < child->count; i++) {
 								Bot* Child = temp->val;
-								Child->setobj(tempObj);
-								Child->setFight(true);
+								Child->SetObj(tempObj);
+								Child->SetFight(true);
 								temp = temp->next;
 							}
 						}
@@ -94,8 +94,8 @@ public:
 					else {
 						if (tempObj == 0) {
 							isFight = false;
-							setMove(true);
-							setTempXY(pos.x, pos.y);
+							SetMove(true);
+							SetTempXY(pos.x, pos.y);
 						}
 						else {
 							object = tempObj;

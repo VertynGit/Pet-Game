@@ -46,9 +46,9 @@ public:
 public:
 	listV() : head(NULL), count(0) {}
 	~listV() {
-		clear(); //Функция освобождает память, используемую для хранения списка
+		Clear(); //Функция освобождает память, используемую для хранения списка
 	}
-	int add(T data)//Добавление элемента в конец списка. Возвращает количество элементов в списке
+	int Add(T data)//Добавление элемента в конец списка. Возвращает количество элементов в списке
 	{
 		if (count == 0) {//Если в списке нет элементов
 			nodeV<T>* to_add = new nodeV<T>(data);
@@ -66,7 +66,7 @@ public:
 		count++;
 		return count;
 	}
-	int del(nodeV<T>* temp) //Удаление узла из списка. Возвращает количество элементов в списке. 
+	int Del(nodeV<T>* temp) //Удаление узла из списка. Возвращает количество элементов в списке. 
 	{
 		count--;
 		if (head == temp)
@@ -77,7 +77,7 @@ public:
 		delete temp;
 		return count;
 	}
-	void clear() //Очистка списка
+	void Clear() //Очистка списка
 	{
 		if (count != 0) {
 			nodeV<T>* current = head;
@@ -99,9 +99,9 @@ public:
 public:
 	list() : head(NULL), count(0) {}
 	~list() {
-		clear(); //Функция освобождает память, используемую для хранения списка
+		Clear(); //Функция освобождает память, используемую для хранения списка
 	}
-	int add(T* data)//Добавление элемента в конец списка. Возвращает количество элементов в списке
+	int Add(T* data)//Добавление элемента в конец списка. Возвращает количество элементов в списке
 	{
 		if (count == 0) {//Если в списке нет элементов
 			node<T>* to_add = new node<T>(data);
@@ -119,7 +119,7 @@ public:
 		count++;
 		return count;
 	}
-	int addWD(T* data)//
+	int AddWD(T* data)//
 	{
 		if (count == 0) {//Если в списке нет элементов
 			node<T>* to_add = new nodeWD<T>(data);
@@ -137,7 +137,7 @@ public:
 		count++;
 		return count;
 	}
-	int del(node<T>* temp) //Удаление узла из списка. Возвращает количество элементов в списке. 
+	int Del(node<T>* temp) //Удаление узла из списка. Возвращает количество элементов в списке. 
 	{
 		count--;
 		if (head == temp)
@@ -148,7 +148,7 @@ public:
 		delete temp;
 		return count;
 	}
-	void clear() //Очистка списка
+	void Clear() //Очистка списка
 	{
 		if (count!= 0) {
 			node<T>* current = head;
